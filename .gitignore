@@ -1,0 +1,7 @@
+.vscode/
+
+studio/node_modules
+
+web/node_modules
+web/.next
+web/.env
