@@ -73,8 +73,26 @@ const WavesContainer = styled.div<{ wavesColor: string }>`
 		}
 	}
 	@media screen and (${devices.minTablet}) and (${devices.maxTablet}) {
+		.waves {
+			position:relative;
+			width: 100%;
+			height: 90px;
+			min-height:90px;
+			max-height:90px;
+			margin-bottom: -25px;
+			z-index: 13
+		}
 	}
 	@media screen and (${devices.minLaptop}) and (${devices.maxLaptop}) {
+		.waves {
+			position:relative;
+			width: 100%;
+			height: 90px;
+			min-height:90px;
+			max-height:90px;
+			margin-bottom: -15px;
+			z-index: 13
+		}
 	}
 `
 

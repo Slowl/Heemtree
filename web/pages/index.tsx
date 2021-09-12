@@ -107,9 +107,34 @@ const ButtonsContainer = styled.div<{ topShadow: boolean; bottomShadow: boolean;
 			width: 94%;
 		}
 	}
+	@media screen and (${devices.mobile}) and (max-height: 600px){
+		.bottom-shadow-container {
+			display: none;
+		}
+	}
 	@media screen and (${devices.minTablet}) and (${devices.maxTablet}) {
+		max-height: 35vh;
+		width: 90%;
+		min-width: 90%;
+		.top-shadow-container {
+			width: 94%;
+		}
+		.bottom-shadow-container {
+			width: 94%;
+		}
+	}
+	@media screen and (${devices.minTablet}) and (${devices.maxTablet}) and (max-height: 730px) {
+		.bottom-shadow-container {
+			display: none;
+		}
 	}
 	@media screen and (${devices.minLaptop}) and (${devices.maxLaptop}) {
+	}
+	/* LAPTOP WITH SMALL HEIGHT */
+	@media screen and (${devices.minLaptop}) and (${devices.maxLaptop}) and (max-height: 860px){
+		.bottom-shadow-container {
+			display: none;
+		}
 	}
 `
 
@@ -138,6 +163,11 @@ const BoruContainer = styled.div`
 		display: none;
 	}
 	@media screen and (${devices.minTablet}) and (${devices.maxTablet}) {
+		left: 12.5%;
+	}
+	/* TABLET SMALL WIDTH */
+	@media screen and (${devices.minTablet}) and (max-width: 630px) {
+		display: none;
 	}
 	@media screen and (${devices.minLaptop}) and (${devices.maxLaptop}) {
 	}
@@ -177,9 +207,25 @@ const HakuSharkContainer = styled.div`
 			width: 10.5rem;
 		}
 	}
+	/* MOBILE SMALL HEIGHT */
+	@media screen and (${devices.mobile}) and (max-height: 600px){
+		display: none;
+	}
 	@media screen and (${devices.minTablet}) and (${devices.maxTablet}) {
+		left: 10%;
+		bottom: -70px;
+		animation: HakuWave 4s cubic-bezier(.55, .5, .45, .5) infinite;
+		z-index: 12;
+		img {
+			width: 14rem;
+		}
+	}
+	/* TABLET SMALL HEIGHT */
+	@media screen and (${devices.minTablet}) and (${devices.maxTablet}) and (max-height: 790px) {
+		display: none;
 	}
 	@media screen and (${devices.minLaptop}) and (${devices.maxLaptop}) {
+		bottom: -75px;
 	}
 `
 
@@ -193,6 +239,12 @@ const MiruBeeContainer = styled.div`
 		display: none;
 	}
 	@media screen and (${devices.minTablet}) and (${devices.maxTablet}) {
+		right: 10%;
+		top: 130px;
+	}
+	/* TABLET SMALL WIDTH */
+	@media screen and (${devices.minTablet}) and (max-width: 630px) {
+		display: none;
 	}
 	@media screen and (${devices.minLaptop}) and (${devices.maxLaptop}) {
 	}

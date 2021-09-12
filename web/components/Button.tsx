@@ -73,6 +73,9 @@ const ButtonContainer = styled.a<{ isAnimated?: boolean }>`
 		margin: .5rem 0;
 	}
 	@media screen and (${devices.minTablet}) and (${devices.maxTablet}) {
+		padding: .7rem .3rem;
+		font-size: 1.1rem;
+		margin: .8rem 0;
 	}
 	@media screen and (${devices.minLaptop}) and (${devices.maxLaptop}) {
 	}
