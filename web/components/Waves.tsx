@@ -11,9 +11,9 @@ const WavesContainer = styled.div<{ wavesColor: string }>`
 		position:relative;
 		width: 100%;
 		height: 150px;
-		margin-bottom:-7px;
-		min-height:150px;
-		max-height:150px;
+		margin-bottom: -15px;
+		min-height: 130px;
+		max-height: 130px;
 		z-index: 13
 	}
 

@@ -5,12 +5,14 @@ import { urlFor } from '@/utilities/index'
 import { LinkType, StatusType } from 'interfaces'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { HiChevronDown } from 'react-icons/hi'
 import styled from 'styled-components'
 import Button from '../components/Button'
 import StatusSection from '../components/StatusSection'
 import Waves from '../components/Waves'
 
+//#region STYLE
 const MainContainer = styled.main`
 	position: relative;
 	min-height: 100vh;
@@ -21,9 +23,9 @@ const MainContainer = styled.main`
 
 const ButtonsContainer = styled.div<{ topShadow: boolean; bottomShadow: boolean; }>`
 	min-height: 10vh;
-	max-height: 40vh;
+	max-height: 32vh;
 	width: 45%;
-	margin: auto;
+	margin: 2rem auto .5rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -32,37 +34,9 @@ const ButtonsContainer = styled.div<{ topShadow: boolean; bottomShadow: boolean;
 	overflow-x: hidden;
 	position: relative;
 
-	scrollbar-color: ${({theme}) => theme.colors.greyDarker} rgba(0,0,0,0);
-	scrollbar-width: thin;
+	scrollbar-width: none;
 	::-webkit-scrollbar {
-		width: 3px;
-	}
-	::-webkit-scrollbar-button {
-		width: 0px;
-		height: 0px;
-	}
-	::-webkit-scrollbar-thumb {
-		background: ${({theme}) => theme.colors.greyDarker};
-		border: 0px;
-	}
-	::-webkit-scrollbar-thumb:hover {
-		background: ${({theme}) => theme.colors.greyDarker};
-	}
-	::-webkit-scrollbar-thumb:active {
-		background: ${({theme}) => theme.colors.greyDarker};
-	}
-	::-webkit-scrollbar-track {
-		background: rgba(0,0,0,0);
-		border: 0px none ${({theme}) => theme.colors.white};
-	}
-	::-webkit-scrollbar-track:hover {
-		background: rgba(0,0,0,0);
-	}
-	::-webkit-scrollbar-track:active {
-		background: rgba(0,0,0,0);
-	}
-	::-webkit-scrollbar-corner {
-		background: transparent;
+		display: none;
 	}
 
 	.top-shadow-container {
@@ -128,8 +102,6 @@ const ButtonsContainer = styled.div<{ topShadow: boolean; bottomShadow: boolean;
 			display: none;
 		}
 	}
-	@media screen and (${devices.minLaptop}) and (${devices.maxLaptop}) {
-	}
 	/* LAPTOP WITH SMALL HEIGHT */
 	@media screen and (${devices.minLaptop}) and (${devices.maxLaptop}) and (max-height: 860px){
 		.bottom-shadow-container {
@@ -169,7 +141,11 @@ const BoruContainer = styled.div`
 	@media screen and (${devices.minTablet}) and (max-width: 630px) {
 		display: none;
 	}
-	@media screen and (${devices.minLaptop}) and (${devices.maxLaptop}) {
+	@media screen and (min-width: 1921px) and (max-width: 2000px) {
+		top: 270px;
+	}
+	@media screen and (min-width: 2001px) and (max-width: 4002px) {
+		top: 240px;
 	}
 `
 
@@ -182,18 +158,18 @@ const GuardrailContainer = styled.div`
 
 	animation: BoatWaving 6s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
 
-	@media screen and (${devices.mobile}) {
+	@media screen and (min-width: 1921px) and (max-width: 2000px) {
+		display: none;
 	}
-	@media screen and (${devices.minTablet}) and (${devices.maxTablet}) {
-	}
-	@media screen and (${devices.minLaptop}) and (${devices.maxLaptop}) {
+	@media screen and (min-width: 2001px) and (max-width: 4002px) {
+		display: none;
 	}
 `
 
 const HakuSharkContainer = styled.div`
 	position: absolute;
 	left: 13%;
-	bottom: -40px;
+	bottom: -55px;
 	animation: HakuWave 4s cubic-bezier(.55, .5, .45, .5) infinite;
 	z-index: 12;
 	img {
@@ -246,33 +222,76 @@ const MiruBeeContainer = styled.div`
 	@media screen and (${devices.minTablet}) and (max-width: 630px) {
 		display: none;
 	}
-	@media screen and (${devices.minLaptop}) and (${devices.maxLaptop}) {
-	}
 `
 
+const BottomChevronContainer = styled.div<{ isVisible: boolean; }>`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 1.5rem;
+	height: 1.5rem;
+	margin: auto;
+	border-radius: 50%;
+	background-color: rgba(255, 255, 255, .8);
+	cursor: pointer;
+	visibility: ${({ isVisible }) => isVisible ? 'visible' : 'hidden'};
+	opacity: ${({ isVisible }) => isVisible ? 1 : 0};
+	transform: translateY(${({ isVisible }) => isVisible ? '0px' : '-4px'});
+	transition: .25s;
+	svg {
+		font-size: 1.25rem;
+		color: ${({ theme }) => theme.colors.black};
+	}
+
+	:hover {
+		background-color: rgba(255, 255, 255, 1);
+	}
+`
+//#endregion
+
+//#region PAGE
 const Index = ({ links, status }: { links: LinkType[], status: StatusType }) => {
 
-	const [ bottomShadow, setBottomShadow ] = useState(true)
-	const [ topShadow, setTopShadow ] = useState(false)
+	const ButtonsContainerRef = useRef<any>()
+	const [ isScrollableBottom, SetIsScrollableBottom ] = useState(false)
+	const [ isScrollableTop, setIsScrollableTop ] = useState(false)
+
+	useEffect(
+		() => {
+			const currentRef = ButtonsContainerRef.current as any
+			if (
+				(currentRef?.scrollTop < (currentRef?.scrollTopMax ? currentRef?.scrollTopMax : (currentRef?.scrollHeight - currentRef?.clientHeight)))
+			) {
+				SetIsScrollableBottom(true)
+			}
+		},
+		[],
+	)
 
 	const setButtonContainerShadows = (event: any) => {
-		console.log(event)
 		const target = event.target
 		window.requestAnimationFrame(
 			() => {
 				if (target.scrollTop > 0) {
-					setTopShadow(true)
+					setIsScrollableTop(true)
 				} else {
-					setTopShadow(false)
+					setIsScrollableTop(false)
 				}
 				if (target.scrollTop < (target.scrollTopMax ? target.scrollTopMax : (target.scrollHeight - target.clientHeight))) {
-					setBottomShadow(true)
+					SetIsScrollableBottom(true)
 				} else {
-					setBottomShadow(false)
+					SetIsScrollableBottom(false)
 				}
 			},
 		);
 	}
+
+	const ScrollToBottom = () => (
+		ButtonsContainerRef.current.scrollBy({
+			behavior: 'smooth',
+			top: 110,
+		})
+	)
 
 	return (
 		<>
@@ -299,31 +318,31 @@ const Index = ({ links, status }: { links: LinkType[], status: StatusType }) => 
 				<StatusSection status={status} />
 				<ButtonsContainer
 					onScroll={(e) => setButtonContainerShadows(e)}
-					topShadow={topShadow}
-					bottomShadow={bottomShadow}
+					topShadow={isScrollableTop}
+					bottomShadow={isScrollableBottom}
+					ref={ButtonsContainerRef}
 				>
 					<div className='top-shadow-container' />
-					{links.map(
-						(link: LinkType, index: number) => (
-							<>
+						{links.map(
+							(link: LinkType, index: number) => (
 								<Button name={link.title} href={link.url} isAnimated={link.isAnimated} key={index} />
-								<Button name={link.title} href={link.url} isAnimated={false} key={index} />
-								<Button name={link.title} href={link.url} isAnimated={false} key={index} />
-								<Button name={link.title} href={link.url} isAnimated={false} key={index} />
-								<Button name={link.title} href={link.url} isAnimated={false} key={index} />
-								<Button name={link.title} href={link.url} isAnimated={false} key={index} />
-								<Button name={link.title} href={link.url} isAnimated={false} key={index} />
-							</>
-						),
-					)}
+							),
+						)}
 					<div className='bottom-shadow-container' />
 				</ButtonsContainer>
+				<BottomChevronContainer
+					isVisible={isScrollableBottom}
+					onClick={() => ScrollToBottom()}
+				>
+					<HiChevronDown />
+				</BottomChevronContainer>
 			</MainContainer>
 
 			<Waves wavesColor='#86daf7' />
 		</>
 	)
 }
+//#endregion
 
 //#region CONNEXION
 export const getStaticProps: GetStaticProps = async () => {

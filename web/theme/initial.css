@@ -1,6 +1,6 @@
 @font-face {
-	font-family: "AllerDisplay";
-	src: url("../public/assets/font/AllerDisplay.ttf");
+	font-family: "AnjaEliane";
+	src: url("../public/assets/font/AnjaEliane.ttf");
 	/* src: url("") format("embedded-opentype"), url("") format("woff2"),
 		url("") format("woff"), url("") format("truetype"); */
 }
@@ -109,7 +109,7 @@ html {
 
 body {
 	background-color: #2e2e3a;
-	font-family: AllerDisplay, Arial, Verdana, sans-serif;
+	font-family: AnjaEliane, Arial, Verdana, sans-serif;
 	overflow: hidden;
 	height: 100%;
 	margin: 0;
@@ -140,4 +140,16 @@ body:after {
 	height: 50vh;
 	background-color: #f3f3f3;
 	z-index: -1000;
+}
+
+@media screen and (min-width: 1921px) and (max-width: 2000px) {
+	body:before {
+		background-image: url(../public/assets/images/background_2K_F.png);
+	}
+}
+
+@media screen and (min-width: 2001px) and (max-width: 4002px) {
+	body:before {
+		background-image: url(../public/assets/images/background_4K_F_resized.png);
+	}
 }

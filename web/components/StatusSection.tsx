@@ -9,7 +9,7 @@ const PresentationContainer = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	padding: 5rem 0 4rem;
+	padding: 5rem 0 2rem;
 	img {
 		width: 180px;
 		height: 180px;
@@ -34,17 +34,13 @@ const IntroText = styled.h1`
 	text-align: center;
 	padding-bottom: 2.2rem;
 	color: ${({theme}) => theme.colors.blue};
-	font-size: 2.5rem;
+	font-size: 2.7rem;
 	letter-spacing: 2px;
 	width: 95%;
 
 	@media screen and (${devices.mobile}) {
 		font-size: 1.7rem;
 		letter-spacing: 1px;
-	}
-	@media screen and (${devices.minTablet}) and (${devices.maxTablet}) {
-	}
-	@media screen and (${devices.minLaptop}) and (${devices.maxLaptop}) {
 	}
 `
 
@@ -54,7 +50,7 @@ const StatusSection = ({ status }: { status: StatusType }) => {
 
 	return (
 		<PresentationContainer>
-			<IntroText>{status.message}</IntroText>
+			<IntroText> {status.message} </IntroText>
 			<img alt='status image of Heemly' src={STATUS_IMG} />
 		</PresentationContainer>
 	)

@@ -11,6 +11,10 @@ interface ButtonProps {
 const ButtonContainer = styled.a<{ isAnimated?: boolean }>`
 	width: 90%;
 	max-width: 50rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
 	padding: .9rem 0rem;
 	margin: 1.2rem 0;
 	border: 2px solid ${({theme}) => theme.colors.blue};
