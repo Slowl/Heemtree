@@ -1,6 +1,7 @@
 .vscode/
 
 studio/node_modules
+studio/dist
 
 web/node_modules
 web/.next
