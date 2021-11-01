@@ -13,12 +13,13 @@ import StatusSection from '../components/StatusSection'
 import Waves from '../components/Waves'
 
 //#region STYLE
-const MainContainer = styled.main`
+const ContentContainer = styled.main`
 	position: relative;
 	min-height: 100vh;
 	max-height: 100vh;
 	padding: 0 1rem;
 	z-index: 999;
+	overflow: hidden;
 `
 
 const ButtonsContainer = styled.div<{ topShadow: boolean; bottomShadow: boolean; }>`
@@ -154,6 +155,7 @@ const GuardrailContainer = styled.div`
 	left: 0;
 	right: 0;
 	top: 390px;
+	overflow: hidden;
 	z-index: 10;
 
 	animation: BoatWaving 6s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
@@ -314,7 +316,7 @@ const Index = ({ links, status }: { links: LinkType[], status: StatusType }) => 
 				<img alt='miru bee flying' src='/assets/images/miru-bee.png' />
 			</MiruBeeContainer>
 
-			<MainContainer>
+			<ContentContainer>
 				<StatusSection status={status} />
 				<ButtonsContainer
 					onScroll={(e) => setButtonContainerShadows(e)}
@@ -336,7 +338,7 @@ const Index = ({ links, status }: { links: LinkType[], status: StatusType }) => 
 				>
 					<HiChevronDown />
 				</BottomChevronContainer>
-			</MainContainer>
+			</ContentContainer>
 
 			<Waves wavesColor='#86daf7' />
 		</>
