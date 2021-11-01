@@ -4,12 +4,7 @@
   ],
   "plugins": [
     [
-      "styled-components",
-      {
-        "displayName": true,
-        "ssr": true,
-        "pure": true
-      }
+      "styled-components"
     ]
   ]
 }
