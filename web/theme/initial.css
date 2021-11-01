@@ -1,8 +1,6 @@
 @font-face {
 	font-family: "AnjaEliane";
 	src: url("../public/assets/font/AnjaEliane.ttf");
-	/* src: url("") format("embedded-opentype"), url("") format("woff2"),
-		url("") format("woff"), url("") format("truetype"); */
 }
 
 @keyframes BoatWaving {
@@ -110,8 +108,9 @@ html {
 body {
 	background-color: #2e2e3a;
 	font-family: AnjaEliane, Arial, Verdana, sans-serif;
-	overflow: hidden;
+	position: fixed;
 	height: 100%;
+	width: 100%;
 	margin: 0;
 	padding: 0;
 }
@@ -140,6 +139,16 @@ body:after {
 	height: 50vh;
 	background-color: #f3f3f3;
 	z-index: -1000;
+}
+
+@media screen and (max-width: 425px) {
+	body:before {
+		top: -1px;
+		left: -1px;
+	}
+	body:after {
+		height: 55vh;
+	}
 }
 
 @media screen and (min-width: 1921px) and (max-width: 2000px) {
