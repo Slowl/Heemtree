@@ -9,25 +9,20 @@ export default {
       type: 'string',
     },
     {
-      name: 'link',
-      title: 'Link',
+      name: 'url',
+      title: 'URL',
       type: 'string',
     },
     {
-      name: 'mainImage',
-      title: 'Main image',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
+      name: 'isAnimated',
+      title: 'Animate',
+      type: 'boolean',
     },
   ],
 
   preview: {
     select: {
       title: 'title',
-      author: 'author.name',
-      media: 'mainImage',
     },
     prepare(selection) {
       const {author} = selection
