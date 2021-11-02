@@ -1,8 +1,9 @@
 
 export interface LinkType {
+	order: number;
+	isAnimated: boolean;
 	title: string;
 	url: string;
-	isAnimated: boolean;
 }
 
 export interface StatusType {
