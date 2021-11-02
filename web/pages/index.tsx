@@ -26,7 +26,7 @@ const ButtonsContainer = styled.div<{ topShadow: boolean; bottomShadow: boolean;
 	min-height: 10vh;
 	max-height: 32vh;
 	width: 45%;
-	margin: 2rem auto .5rem;
+	margin: 2rem auto 1.2rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -325,7 +325,7 @@ const Index = ({ links, status }: { links: LinkType[], status: StatusType }) => 
 					ref={ButtonsContainerRef}
 				>
 					<div className='top-shadow-container' />
-						{links.map(
+						{links.sort((a: LinkType, b: LinkType) => a.order - b.order).map(
 							(link: LinkType, index: number) => (
 								<Button name={link.title} href={link.url} isAnimated={link.isAnimated} key={index} />
 							),
@@ -350,13 +350,14 @@ const Index = ({ links, status }: { links: LinkType[], status: StatusType }) => 
 export const getStaticProps: GetStaticProps = async () => {
 
 	const status = await client.fetch(`*[_type == 'status'][0]{
+		imageStatus,
 		message,
-		imageStatus
 	  }`)
 	const links = await client.fetch(`*[_type == 'links']{
+		order,
+		isAnimated,
 		title,
 		url,
-		isAnimated
 	}`)
 
 	return {
