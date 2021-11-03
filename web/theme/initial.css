@@ -159,6 +159,6 @@ body:after {
 
 @media screen and (min-width: 2001px) and (max-width: 4002px) {
 	body:before {
-		background-image: url(../public/assets/images/background_4K_F_resized.png);
+		background-image: url(../public/assets/images/background_4K_F.png);
 	}
 }
